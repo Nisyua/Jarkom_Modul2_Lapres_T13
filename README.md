@@ -171,9 +171,10 @@ RewriteEngine On
      Options +Indexes
  </Directory>
 ```
+*jangan lupa untuk menyimpan perubahan tersebut agar directory download menampilkan isi directory-nya.*
 * dan isi sesuai dengan soal
 * Restart apache dengan perintah service apache2 restart
-* Buka browser dan akses http://penanjakan.semerut13.pw/
+* Buka browser dan akses http://penanjakan.semerut13.pw/ **(aku bingungn nulisnya njir desss sama nomer 11 jugakk)**
 
 *__SOAL No. 11__*
 ---
@@ -184,6 +185,12 @@ RewriteEngine On
 ---
 
 ### Untuk mengatasi HTTP Error code 404, disediakan file 404.html pada folder /errors untuk mengganti error default 404 dari Apache.
+
+* Pindah ke directory `etc/apache2/sites-available`
+* Kemudian buka file `penanjakan.semerut13.pw`
+* Tambahkan `ErrorDocument 404 /errors/404.html`
+* Gunakan perintah `service apache2 restart` untuk merestart apache
+
 
 *__SOAL No. 13__*
 ---

@@ -20,7 +20,7 @@
   ```
 zone "jarkom2020.com" {
 	type master;
-	file "/etc/bind/jarkom/jarkom2020.com";
+	file "/etc/bind/jarkom/semerut13.pw";
 };
   ```
   * Buat folder  di dalam `/etc/bind/jarkom`
@@ -116,10 +116,43 @@ penanajakan	  IN	  A	      10.151.83.108	; IP PROBOLINGGO
 
 ### Domain http://semerub12.pw memiliki DocumentRoot pada /var/www/semerub12.pw. Awalnya web dapat diakses menggunakan alamat http://semerub12.pw/index.php/home . Karena dirasa alamat urlnya kurang bagus, maka
 
+* Pindah ke directory `/etc/apache2/sites-available`
+* Copy file default menjadi file **semerut13.pw** Jangan lupa untuk menambahkan `.conf` jika apache2 versi 2.4.x
+* Buka file **semerut13.pw** , tambahkan :
+```
+ ServerName semerut13.pw
+ ServerAlias semerut13.pw
+```
+* Ubah DocumentRoot menjadi `/var/www/semerut13.pw`
+* Aktifkan konfigurasi **semerut13.pw** , Gunakan perintah `a2ensite jarkom2020.com`
+* Restart apache dengan perintah `service apache2 restart`
+* Pindah ke directory `/var/www`
+* Download file dengan perintah `wget 10.151.36.202/semeru.pw.zip`
+* Unzip , lalu rename menjadi **semerut13.pw**
+* Buka browser dan Akses **semeru13.pw**
+
 *__SOAL No. 9__*
 ---
 
 ### Diaktifkan mod rewrite agar urlnya menjadi http://semerub12.pw/home.
+
+* Aktifkan perintah `a2enmod rewrite` untuk mengaktifkan module rewrite.
+* Restart apache dengan perintah `service apache2 restart`
+* Pindah ke directory `/var/www/semerut13.pw` dan buat file `.htaccess` dengan isi file
+```
+RewriteEngine On
+ RewriteCond %{REQUEST_FILENAME} !-d
+ RewriteRule ^([^\.]+)$ $1.php [NC,L]
+```
+* Pindah ke directory `/etc/apache2/sites-available` kemudian buka file `semerut13.pw` dan tambahkan
+```
+ <Directory /var/www/jarkom2020.com>
+     Options +FollowSymLinks -Multiviews
+     AllowOverride All
+ </Directory>
+```
+* Restart apache dengan `service apache2 restart`
+* Buka browser dan akses semerut13.pw/home
 
 *__SOAL No. 10__*
 ---
@@ -132,6 +165,15 @@ penanajakan	  IN	  A	      10.151.83.108	; IP PROBOLINGGO
  	/public/images
 	/errors
 ```
+* Pindah ke directory `/etc/apache2/sites-available` kemudian buka file `penanjakan.semerut13.pw` dan tambahkan :
+```
+ <Directory /var/www/jarkom2020.com/download>
+     Options +Indexes
+ </Directory>
+```
+* dan isi sesuai dengan soal
+* Restart apache dengan perintah service apache2 restart
+* Buka browser dan akses http://penanjakan.semerut13.pw/
 
 *__SOAL No. 11__*
 ---

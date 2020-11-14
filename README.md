@@ -260,8 +260,10 @@ penanajakan	  IN	  A	      10.151.77.156	; IP PROBOLINGGO
 * Pindah ke directory `/var/www`
 * Download file dengan perintah `wget 10.151.36.202/semeru.pw.zip`
 * Unzip , lalu rename menjadi **semerut13.pw**
-* Buka browser dan Akses **semeru13.pw**
+* Buka browser dan Akses **semeru13.pw/index.php/home**
 
+ ![](/images/8-2.jpg)
+ 
 *__SOAL No. 9__*
 ---
 

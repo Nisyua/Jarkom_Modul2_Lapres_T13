@@ -23,15 +23,21 @@ zone "jarkom2020.com" {
 	file "/etc/bind/jarkom/semerut13.pw";
 };
   ```
+  
+  ![](/images/1-1.png)
+  
   * Buat folder  di dalam `/etc/bind/jarkom`
   * Copykan file `db.local` pada path `/etc/bind` ke dalam folder jarkom yang baru saja dibuat :
   ```
   cp /etc/bind/db.local /etc/bind/jarkom/semerut13.pw
   ```
-  * Buka dan edit file semerub12.pw dengan perintah : 
+  * Buka dan edit file semerut13.pw dengan perintah : 
   ```
-  nano /etc/bind/jarkom/semerub13.pw
+  nano /etc/bind/jarkom/semerut13.pw
   ```
+  
+   ![](/images/1-2.png)
+   
   * Lalu restart bind9 dengan :
   ```
   service bind9 restart
@@ -44,35 +50,44 @@ zone "jarkom2020.com" {
   ```
   ping semerut13.pw
   ```
+   ![](/images/1-3.png)
   
 *__SOAL No. 2__*
 ---
-### alias http://www.semerub12.pw
+### alias http://www.semerut13.pw
 
   * menambahkan `cname` dengan menuliskan `www`
   ```
   www   IN   CNAME   semerut13.pw
   ```
+   ![](/images/2-1.png)
+   
   * Kemudian restart bind9 dengan perintah
 
 ```
 service bind9 restart
 ```
 * Lalu cek di client **Gresik** dengan perintah `ping www.semerut13.pw`
+ 
+ ![](/images/2-2.png)
 
 *__SOAL No. 3__*
 ---
-### subdomain http://penanjakan.semerub12.pw yang diatur DNS-nya pada MALANG dan mengarah ke IP Server PROBOLINGGO serta dibuatkan
+### subdomain http://penanjakan.semerut13.pw yang diatur DNS-nya pada MALANG dan mengarah ke IP Server PROBOLINGGO serta dibuatkan
 
 * Edit file pada Malang `/etc/bind/jarkom/semerut13.pw` lalu tambahkan seperti dibawah :
 ```
-@	            IN	  A	      10.151.83.108	; IP PROBOLINGGO
-www	          IN	  CNAME	  semerub12.pw.
-penanajakan	  IN	  A	      10.151.83.108	; IP PROBOLINGGO
+@	          IN	  A	      10.151.77.156	; IP PROBOLINGGO
+www	          IN	  CNAME       semerut13.pw.
+penanajakan	  IN	  A	      10.151.77.156	; IP PROBOLINGGO
 ```
-* Edit `nano /etc/bind/named.conf.local`
+
+ ![](/images/3-1.png)
+ 
 * Lalu ***Restart*** bind9 dengan perintah `service bind9 restart`
 * Pergi ke **Gresik** dan lakukan testing dengan perintah `ping penanjakan.semerut13.pw`
+
+ ![](/images/3-2.png)
 
 *__SOAL No. 4__*
 ---
@@ -84,17 +99,26 @@ penanajakan	  IN	  A	      10.151.83.108	; IP PROBOLINGGO
   ```
   * Lalu tambahkan konfigurasi berikut ke dalam file `named.conf.local`
   ```
-  zone "71.151.10.in-addr.arpa" {
+  zone "77.151.10.in-addr.arpa" {
     type master;
     file "/etc/bind/jarkom/77.151.10.in-addr.arpa";
 };
   ```
+  
+   ![](/images/4-1.png)
+   
   * Copykan file db.local pada path /etc/bind ke dalam folder jarkom dengan perintah
   ```
   cp /etc/bind/db.local /etc/bind/jarkom/77.151.10.in-addr.arpa
   ```
   * Kemudian edit file dengan `nano /etc/bind/jarkom/77.151.10.in-addr.arpa`
+  
+   ![](/images/4-2.png)
+   
   * Restart bind9 dengan `service bind9 restart`
+  * Pergi ke **Gresik** dan lakukan testing dengan perintah `host -t PTR [IP PROBOLINGGO]`
+  
+  ![](/images/4-3.png)
   
 *__SOAL No. 5__*
 ---

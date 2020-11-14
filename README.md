@@ -67,7 +67,7 @@ zone "jarkom2020.com" {
 ```
 service bind9 restart
 ```
-* Lalu cek di client **Gresik** dengan perintah `ping www.semerut13.pw`
+* Lalu cek di client **GRESIK** dengan perintah `ping www.semerut13.pw`
  
  ![](/images/2-2.png)
 
@@ -85,7 +85,7 @@ penanajakan	  IN	  A	      10.151.77.156	; IP PROBOLINGGO
  ![](/images/3-1.png)
  
 * Lalu ***Restart*** bind9 dengan perintah `service bind9 restart`
-* Pergi ke **Gresik** dan lakukan testing dengan perintah `ping penanjakan.semerut13.pw`
+* Pergi ke **GRESIK** dan lakukan testing dengan perintah `ping penanjakan.semerut13.pw`
 
  ![](/images/3-2.png)
 
@@ -116,7 +116,7 @@ penanajakan	  IN	  A	      10.151.77.156	; IP PROBOLINGGO
    ![](/images/4-2.png)
    
   * Restart bind9 dengan `service bind9 restart`
-  * Pergi ke **Gresik** dan lakukan testing dengan perintah `host -t PTR [IP PROBOLINGGO]`
+  * Pergi ke **GRESIK** dan lakukan testing dengan perintah `host -t PTR [IP PROBOLINGGO]`
   
   ![](/images/4-3.png)
   
@@ -125,10 +125,56 @@ penanajakan	  IN	  A	      10.151.77.156	; IP PROBOLINGGO
 
 ### DNS Server Slave pada MOJOKERTO agar Bibah tidak terganggu menikmati keindahan Semeru pada Website. Selain website utama Bibah juga meminta dibuatkan
 
+* Edit file `/etc/bind/named.conf.local` pada ***MALANG***
+  ```
+  nano /etc/bind/named.conf.local
+  ```
+  * Lalu tambahkan konfigurasi berikut ke dalam file `named.conf.local`
+  ```
+  zone "semerut13.pw" {
+    type master;
+    notify yes;
+    also-notify { 10.151.77.155; }; // Masukan IP MOJOKERTO tanpa tanda petik
+    allow-transfer { 10.151.77.155; }; // Masukan IP MOJOKERTO tanpa tanda petik
+    file "/etc/bind/jarkom/semerut13.pw";
+    };
+  ```
+  * Lalu ***Restart*** bind9 dengan perintah `service bind9 restart`
+  * Pergi ke ***MOJOKERTO*** dan jalankan perintah `apt-get update` kemudian `apt-get install bind9 -y
+  * Edit file `/etc/bind/named.conf.local` pada ***MOJOKERTO***
+  ```
+  nano /etc/bind/named.conf.local
+  ```
+  * Lalu tambahkan konfigurasi berikut ke dalam file `named.conf.local`
+  ```
+  zone "semerut13.pw" {
+    type slave;
+    masters { 10.151.77.154; } // Masukan IP MALANG tanpa tanda petik
+    file "/var/lib/bind/semerut13.pw";
+  };
+  ```
+  * Lalu ***Restart*** bind9 dengan perintah `service bind9 restart`
+  * Pada server ***MALANG*** matikan service bind dengan perintah `service bind9 stop`
+  * Pastikan nameserver pada **GRESIK** mengarah ke *IP MOJOKERTO* dan *IP MALANG*
+  * Lalu cek di client **GRESIK** dengan perintah `ping semerut13.pw`
+  
+
 *__SOAL No. 6__*
 ---
 
 ### Subdomain dengan alamat http://gunung.semerut13.pw yang didelegasikan pada server MOJOKERTO dan mengarah ke IP Server PROBOLINGGO. Bibah juga ingin memberi petunjuk mendaki gunung semeru kepada anggota komunitas sehingga dia meminta dibuatkan
+
+* Edit file pada Malang `/etc/bind/jarkom/semerut13.pw` lalu tambahkan seperti dibawah :
+```
+@	          IN	  A	      10.151.77.156	; IP PROBOLINGGO
+www	          IN	  CNAME       semerut13.pw.
+penanajakan	  IN	  A	      10.151.77.156	; IP PROBOLINGGO
+ns1		  IN	  A	      10.151.77.155	; IP MOJOKERTO
+gunung		  IN	  NS	      ns1
+```
+ 
+* Lalu ***Restart*** bind9 dengan perintah `service bind9 restart`
+* Pergi ke **GRESIK** dan lakukan testing dengan perintah `ping gunung.semerut13.pw`
 
 
 *__SOAL No. 7__*

@@ -255,7 +255,7 @@ penanajakan	  IN	  A	      10.151.77.156	; IP PROBOLINGGO
 
  ![](/images/8-1.png)
  
-* Aktifkan konfigurasi **semerut13.pw** , Gunakan perintah `a2ensite jarkom2020.com`
+* Aktifkan konfigurasi **semerut13.pw.conf** , Gunakan perintah `a2ensite jarkom2020.com`
 * Restart apache dengan perintah `service apache2 restart`
 * Pindah ke directory `/var/www`
 * Download file dengan perintah `wget 10.151.36.202/semeru.pw.zip`
@@ -272,48 +272,79 @@ penanajakan	  IN	  A	      10.151.77.156	; IP PROBOLINGGO
 * Aktifkan perintah `a2enmod rewrite` untuk mengaktifkan module rewrite.
 * Restart apache dengan perintah `service apache2 restart`
 * Pindah ke directory `/var/www/semerut13.pw` dan buat file `.htaccess` dengan isi file
-```
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php/$1 [L]
-```
+  ```
+  RewriteEngine On
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)$ /index.php/$1 [NC,L]
+  ```
+  ![](/images/9-2.png)
+
 * Pindah ke directory `/etc/apache2/sites-available` kemudian buka file `semerut13.pw` dan tambahkan
-```
- <Directory /var/www/jarkom2020.com>
-     Options +FollowSymLinks -Multiviews
-     AllowOverride All
- </Directory>
-```
+  ```
+   <Directory /var/www/jarkom2020.com>
+       Options +FollowSymLinks -Multiviews
+       AllowOverride All
+   </Directory>
+  ```
+  
+  ![](/images/9-1.png)
+  
 * Restart apache dengan `service apache2 restart`
 * Buka browser dan akses semerut13.pw/home
+  
+  ![](/images/home.png)
 
 *__SOAL No. 10__*
 ---
 
 ### Web http://penanjakan.semerut13.pw akan digunakan untuk menyimpan assets file yang memiliki DocumentRoot pada /var/www/penanjakan.semerut13.pw dan memiliki struktur folder sebagai berikut:
-```
-/var/www/penanjakan.semerut13.pw
+  ```
+  /var/www/penanjakan.semerut13.pw
  	/public/javascripts
  	/public/css
  	/public/images
-	/errors
-```
-* Pindah ke directory `/etc/apache2/sites-available` kemudian buka file `penanjakan.semerut13.pw` dan tambahkan :
-```
- <Directory /var/www/jarkom2020.com/assets>
-     Options +Indexes
- </Directory>
-```
-*jangan lupa untuk menyimpan perubahan tersebut agar directory download menampilkan isi directory-nya.*
-* dan isi sesuai dengan soal
+  	/errors
+  ```
+* Pindah ke directory `/etc/apache2/sites-available` kemudian buat file `penanjakan.semerut13.pw.conf` dan tambahkan:
+
+  ```
+   ServerName semerut13.pw
+   ServerAlias semerut13.pw
+  ```
+
+  ![](/images/10-1.png)
+
 * Restart apache dengan perintah `service apache2 restart`
-* Buka browser dan akses http://penanjakan.semerut13.pw/ **(aku bingungn nulisnya njir desss sama nomer 11 jugakk)**
+* Buka browser dan akses **http://penanjakan.semerut13.pw/**
+
+  ![](/images/10-2.png)
 
 *__SOAL No. 11__*
 ---
 
 ### Pada folder /public dibolehkan directory listing namun untuk folder yang berada di dalamnya tidak dibolehkan.
+* Edit file `/etc/apache2/sites-available/penanjakan.semerut13.pw` dan tambahkan Options `+Indexes` serta `-Indexes`
+
+  ![](/images/11-1.png)
+
+* Restart apache dengan perintah `service apache2 restart`
+* Buka browser dan akses **http://penanjakan.semerut13.pw/public**
+
+  ![](/images/11-2.png)
+ 
+* Web dapat melakukan *listing*, namun tidak dapat membuka file yang lainnya seperti
+  * File css
+  
+  ![](/images/11-css.png)
+  
+  * File images
+  
+  ![](/images/11-images.png)
+  
+  * File javascript
+  
+  ![](/images/11-js.png)
 
 *__SOAL No. 12__*
 ---
@@ -323,11 +354,17 @@ RewriteRule ^(.*)$ index.php/$1 [L]
 * Pindah ke directory `etc/apache2/sites-available`
 * Kemudian buka file `penanjakan.semerut13.pw`
 * Tambahkan `ErrorDocument 404 /errors/404.html`
-* Gunakan perintah `service apache2 restart` untuk merestart apache
 
+  ![](/images/12-1.png)
+  
+* Gunakan perintah `service apache2 restart` untuk merestart apache
+* Buka browser dan akses **http://penanjakan.semerut13.pw/abc0**
+
+  ![](/images/12-2.png)
 
 *__SOAL No. 13__*
 ---
 
 ### Untuk mengakses file assets javascript awalnya harus menggunakan url http://penanjakan.semerut13.pw/public/javascripts. Karena terlalu panjang maka dibuatkan konfigurasi virtual host agar ketika mengakses file assets menjadi http://penanjakan.semerut13.pw/js. Untuk web http://gunung.semerut13.pw belum dapat dikonfigurasi pada web server karena menunggu pengerjaan website selesai.
+
 

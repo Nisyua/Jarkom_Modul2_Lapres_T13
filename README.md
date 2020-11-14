@@ -127,18 +127,19 @@ penanajakan	  IN	  A	      10.151.77.156	; IP PROBOLINGGO
 
 *__SOAL No. 6__*
 ---
-### Subdomain dengan alamat http://gunung.semerub12.pw yang didelegasikan pada server MOJOKERTO dan mengarah ke IP Server PROBOLINGGO. Bibah juga ingin memberi petunjuk mendaki gunung semeru kepada anggota komunitas sehingga dia meminta dibuatkan
+
+### Subdomain dengan alamat http://gunung.semerut13.pw yang didelegasikan pada server MOJOKERTO dan mengarah ke IP Server PROBOLINGGO. Bibah juga ingin memberi petunjuk mendaki gunung semeru kepada anggota komunitas sehingga dia meminta dibuatkan
 
 
 *__SOAL No. 7__*
 ---
 
-### Subdomain dengan nama http://naik.gunung.semerub12.pw, domain ini diarahkan ke IP Server PROBOLINGGO. Setelah selesai membuat keseluruhan domain, kamu diminta untuk segera mengatur web server.
+### Subdomain dengan nama http://naik.gunung.semerut13.pw, domain ini diarahkan ke IP Server PROBOLINGGO. Setelah selesai membuat keseluruhan domain, kamu diminta untuk segera mengatur web server.
 
 *__SOAL No. 8__*
 ---
 
-### Domain http://semerub12.pw memiliki DocumentRoot pada /var/www/semerub12.pw. Awalnya web dapat diakses menggunakan alamat http://semerub12.pw/index.php/home . Karena dirasa alamat urlnya kurang bagus, maka
+### Domain http://semerut13.pw memiliki DocumentRoot pada /var/www/semerut13.pw. Awalnya web dapat diakses menggunakan alamat http://semerut13.pw/index.php/home . Karena dirasa alamat urlnya kurang bagus, maka
 
 * Pindah ke directory `/etc/apache2/sites-available`
 * Copy file default menjadi file **semerut13.pw** Jangan lupa untuk menambahkan `.conf` jika apache2 versi 2.4.x
@@ -158,15 +159,16 @@ penanajakan	  IN	  A	      10.151.77.156	; IP PROBOLINGGO
 *__SOAL No. 9__*
 ---
 
-### Diaktifkan mod rewrite agar urlnya menjadi http://semerub12.pw/home.
+### Diaktifkan mod rewrite agar urlnya menjadi http://semerut13.pw/home.
 
 * Aktifkan perintah `a2enmod rewrite` untuk mengaktifkan module rewrite.
 * Restart apache dengan perintah `service apache2 restart`
 * Pindah ke directory `/var/www/semerut13.pw` dan buat file `.htaccess` dengan isi file
 ```
 RewriteEngine On
- RewriteCond %{REQUEST_FILENAME} !-d
- RewriteRule ^([^\.]+)$ $1.php [NC,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L]
 ```
 * Pindah ke directory `/etc/apache2/sites-available` kemudian buka file `semerut13.pw` dan tambahkan
 ```
@@ -181,9 +183,9 @@ RewriteEngine On
 *__SOAL No. 10__*
 ---
 
-### Web http://penanjakan.semerub12.pw akan digunakan untuk menyimpan assets file yang memiliki DocumentRoot pada /var/www/penanjakan.semerub12.pw dan memiliki struktur folder sebagai berikut:
+### Web http://penanjakan.semerut13.pw akan digunakan untuk menyimpan assets file yang memiliki DocumentRoot pada /var/www/penanjakan.semerut13.pw dan memiliki struktur folder sebagai berikut:
 ```
-/var/www/penanjakan.semerub12.pw
+/var/www/penanjakan.semerut13.pw
  	/public/javascripts
  	/public/css
  	/public/images
@@ -191,13 +193,13 @@ RewriteEngine On
 ```
 * Pindah ke directory `/etc/apache2/sites-available` kemudian buka file `penanjakan.semerut13.pw` dan tambahkan :
 ```
- <Directory /var/www/jarkom2020.com/download>
+ <Directory /var/www/jarkom2020.com/assets>
      Options +Indexes
  </Directory>
 ```
 *jangan lupa untuk menyimpan perubahan tersebut agar directory download menampilkan isi directory-nya.*
 * dan isi sesuai dengan soal
-* Restart apache dengan perintah service apache2 restart
+* Restart apache dengan perintah `service apache2 restart`
 * Buka browser dan akses http://penanjakan.semerut13.pw/ **(aku bingungn nulisnya njir desss sama nomer 11 jugakk)**
 
 *__SOAL No. 11__*
@@ -219,5 +221,5 @@ RewriteEngine On
 *__SOAL No. 13__*
 ---
 
-### Untuk mengakses file assets javascript awalnya harus menggunakan url http://penanjakan.semerub12.pw/public/javascripts. Karena terlalu panjang maka dibuatkan konfigurasi virtual host agar ketika mengakses file assets menjadi http://penanjakan.semerub12.pw/js. Untuk web http://gunung.semerub12.pw belum dapat dikonfigurasi pada web server karena menunggu pengerjaan website selesai.
+### Untuk mengakses file assets javascript awalnya harus menggunakan url http://penanjakan.semerut13.pw/public/javascripts. Karena terlalu panjang maka dibuatkan konfigurasi virtual host agar ketika mengakses file assets menjadi http://penanjakan.semerut13.pw/js. Untuk web http://gunung.semerut13.pw belum dapat dikonfigurasi pada web server karena menunggu pengerjaan website selesai.
 

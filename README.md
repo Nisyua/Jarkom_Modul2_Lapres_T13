@@ -139,6 +139,9 @@ penanajakan	  IN	  A	      10.151.77.156	; IP PROBOLINGGO
     file "/etc/bind/jarkom/semerut13.pw";
     };
   ```
+  
+  ![](/images/5-1.png)
+  
   * Lalu ***Restart*** bind9 dengan perintah `service bind9 restart`
   * Pergi ke ***MOJOKERTO*** dan jalankan perintah `apt-get update` kemudian `apt-get install bind9 -y
   * Edit file `/etc/bind/named.conf.local` pada ***MOJOKERTO***
@@ -153,11 +156,14 @@ penanajakan	  IN	  A	      10.151.77.156	; IP PROBOLINGGO
     file "/var/lib/bind/semerut13.pw";
   };
   ```
+    ![](/images/5-2.png)
+    
   * Lalu ***Restart*** bind9 dengan perintah `service bind9 restart`
   * Pada server ***MALANG*** matikan service bind dengan perintah `service bind9 stop`
   * Pastikan nameserver pada **GRESIK** mengarah ke *IP MOJOKERTO* dan *IP MALANG*
   * Lalu cek di client **GRESIK** dengan perintah `ping semerut13.pw`
-  
+    
+    ![](/images/5-3.png)
 
 *__SOAL No. 6__*
 ---
@@ -172,15 +178,66 @@ penanajakan	  IN	  A	      10.151.77.156	; IP PROBOLINGGO
 ns1		  IN	  A	      10.151.77.155	; IP MOJOKERTO
 gunung		  IN	  NS	      ns1
 ```
+  ![](/images/6-1.png)
  
 * Lalu ***Restart*** bind9 dengan perintah `service bind9 restart`
-* Pergi ke **GRESIK** dan lakukan testing dengan perintah `ping gunung.semerut13.pw`
+* Edit file pada Malang `/etc/bind/named.conf.options` dengan melakukan comment **dnssec-validation auto** dan tambahkan 
+```
+allow-query{any;};
+```
+* Edit file `/etc/bind/named.conf.local` pada ***MALANG***
+  ```
+  zone "semerut13.pw" {
+    type master;
+    file "/etc/bind/jarkom/semerut13.pw";
+    allow-transfer { 10.151.77.155; }; // Masukan IP MOJOKERTO tanpa tanda petik
+  };
+  ```
+  ![](/images/6-2.png)
+  
+* Lalu ***Restart*** bind9 dengan perintah `service bind9 restart`
+* Pergi ke ***MOJOKERTO*** dan edit file `/etc/bind/named.conf.options` seperti pada ***MALANG***
+* Edit pada Mojokerto file `/etc/bind/named.conf.local` menjadi
+  ```
+  zone "gunung.semerut13.pw" {
+  	type master;
+	file "/etc/bind/delegasi/gunung.semerut13.pw";
+	allow-transfer { any; };
+  };
+  ```
+* Kemudian buat direktori *delegasi* dan copy db.local ke file delegasi
+  ```
+  mkdir /etc/bind/delegasi
+  cp /etc/bind/db.local /etc/bind/delegasi/gunung.semerut13.pw
+  ```
+* Edit file `/etc/bind/delegasi/gunung.semerut13.pw`
+
+![](/images/6-3.png)
+
+* Lalu ***Restart*** bind9 dengan perintah `service bind9 restart`
+* Kemudian cek di client **GRESIK** dengan perintah `ping gunung.semerut13.pw`
+
+![](/images/6-4.png)
 
 
 *__SOAL No. 7__*
 ---
 
 ### Subdomain dengan nama http://naik.gunung.semerut13.pw, domain ini diarahkan ke IP Server PROBOLINGGO. Setelah selesai membuat keseluruhan domain, kamu diminta untuk segera mengatur web server.
+
+* Edit file pada Mojokerto `/etc/bind/delegasi/gunung.semerut13.pw` lalu tambahkan seperti dibawah :
+```
+@	          IN	  NS	      gunung.semerut13.pw.
+@	          IN	  A           10.151.77.156	; IP PROBOLINGGO
+naik		  IN	  A	      10.151.77.156	; IP PROBOLINGGO
+```
+
+![](/images/7-1.png)
+
+* Lalu ***Restart*** bind9 dengan perintah `service bind9 restart`
+* Kemudian cek di client **GRESIK** dengan perintah `ping gunung.semerut13.pw`
+
+![](/images/7-2.png)
 
 *__SOAL No. 8__*
 ---

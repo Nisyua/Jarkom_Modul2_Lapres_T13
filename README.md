@@ -125,7 +125,7 @@ penanajakan	  IN	  A	      10.151.77.156	; IP PROBOLINGGO
 
 ### DNS Server Slave pada MOJOKERTO agar Bibah tidak terganggu menikmati keindahan Semeru pada Website. Selain website utama Bibah juga meminta dibuatkan
 
-* Edit file `/etc/bind/named.conf.local` pada ***MALANG***
+  * Edit file `/etc/bind/named.conf.local` pada ***MALANG***
   ```
   nano /etc/bind/named.conf.local
   ```
@@ -171,20 +171,20 @@ penanajakan	  IN	  A	      10.151.77.156	; IP PROBOLINGGO
 ### Subdomain dengan alamat http://gunung.semerut13.pw yang didelegasikan pada server MOJOKERTO dan mengarah ke IP Server PROBOLINGGO. Bibah juga ingin memberi petunjuk mendaki gunung semeru kepada anggota komunitas sehingga dia meminta dibuatkan
 
 * Edit file pada Malang `/etc/bind/jarkom/semerut13.pw` lalu tambahkan seperti dibawah :
-```
-@	          IN	  A	      10.151.77.156	; IP PROBOLINGGO
-www	          IN	  CNAME       semerut13.pw.
-penanajakan	  IN	  A	      10.151.77.156	; IP PROBOLINGGO
-ns1		  IN	  A	      10.151.77.155	; IP MOJOKERTO
-gunung		  IN	  NS	      ns1
-```
+  ```
+  @	          IN	  A	      10.151.77.156	; IP PROBOLINGGO
+  www	          IN	  CNAME       semerut13.pw.
+  penanajakan	  IN	  A	      10.151.77.156	; IP PROBOLINGGO
+  ns1		  IN	  A	      10.151.77.155	; IP MOJOKERTO
+  gunung		  IN	  NS	      ns1
+  ```
   ![](/images/6-1.png)
  
 * Lalu ***Restart*** bind9 dengan perintah `service bind9 restart`
 * Edit file pada Malang `/etc/bind/named.conf.options` dengan melakukan comment **dnssec-validation auto** dan tambahkan 
-```
-allow-query{any;};
-```
+  ```
+  allow-query{any;};
+  ```
 * Edit file `/etc/bind/named.conf.local` pada ***MALANG***
   ```
   zone "semerut13.pw" {
@@ -212,12 +212,12 @@ allow-query{any;};
   ```
 * Edit file `/etc/bind/delegasi/gunung.semerut13.pw`
 
-![](/images/6-3.png)
+  ![](/images/6-3.png)
 
 * Lalu ***Restart*** bind9 dengan perintah `service bind9 restart`
 * Kemudian cek di client **GRESIK** dengan perintah `ping gunung.semerut13.pw`
 
-![](/images/6-4.png)
+  ![](/images/6-4.png)
 
 
 *__SOAL No. 7__*
@@ -226,18 +226,18 @@ allow-query{any;};
 ### Subdomain dengan nama http://naik.gunung.semerut13.pw, domain ini diarahkan ke IP Server PROBOLINGGO. Setelah selesai membuat keseluruhan domain, kamu diminta untuk segera mengatur web server.
 
 * Edit file pada Mojokerto `/etc/bind/delegasi/gunung.semerut13.pw` lalu tambahkan seperti dibawah :
-```
-@	          IN	  NS	      gunung.semerut13.pw.
-@	          IN	  A           10.151.77.156	; IP PROBOLINGGO
-naik		  IN	  A	      10.151.77.156	; IP PROBOLINGGO
-```
+  ```
+  @	          IN	  NS	      gunung.semerut13.pw.
+  @	          IN	  A           10.151.77.156	; IP PROBOLINGGO
+  naik		  IN	  A	      10.151.77.156	; IP PROBOLINGGO
+  ```
 
-![](/images/7-1.png)
+  ![](/images/7-1.png)
 
 * Lalu ***Restart*** bind9 dengan perintah `service bind9 restart`
 * Kemudian cek di client **GRESIK** dengan perintah `ping gunung.semerut13.pw`
 
-![](/images/7-2.png)
+  ![](/images/7-2.png)
 
 *__SOAL No. 8__*
 ---
@@ -252,6 +252,9 @@ naik		  IN	  A	      10.151.77.156	; IP PROBOLINGGO
  ServerAlias semerut13.pw
 ```
 * Ubah DocumentRoot menjadi `/var/www/semerut13.pw`
+
+ ![](/images/8-1.png)
+ 
 * Aktifkan konfigurasi **semerut13.pw** , Gunakan perintah `a2ensite jarkom2020.com`
 * Restart apache dengan perintah `service apache2 restart`
 * Pindah ke directory `/var/www`

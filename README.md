@@ -309,8 +309,8 @@ penanajakan	  IN	  A	      10.151.77.156	; IP PROBOLINGGO
 * Pindah ke directory `/etc/apache2/sites-available` kemudian buat file `penanjakan.semerut13.pw.conf` dan tambahkan:
 
   ```
-   ServerName semerut13.pw
-   ServerAlias semerut13.pw
+   ServerName penanjakan.semerut13.pw
+   ServerAlias penanjakan.semerut13.pw
   ```
 
   ![](/images/10-1.png)
@@ -367,4 +367,14 @@ penanajakan	  IN	  A	      10.151.77.156	; IP PROBOLINGGO
 
 ### Untuk mengakses file assets javascript awalnya harus menggunakan url http://penanjakan.semerut13.pw/public/javascripts. Karena terlalu panjang maka dibuatkan konfigurasi virtual host agar ketika mengakses file assets menjadi http://penanjakan.semerut13.pw/js. Untuk web http://gunung.semerut13.pw belum dapat dikonfigurasi pada web server karena menunggu pengerjaan website selesai.
 
+* Pindah ke directory `etc/apache2/sites-available`
+* Kemudian buka file `penanjakan.semerut13.pw`
+* Tambahkan `Alias "/js" "/var/www/penanjalan.semerut13.pw/public/javascripts"` 
+
+  ![](/images/13-1.png)  
+
+* Gunakan perintah `service apache2 restart` untuk merestart apache
+* Buka browser dan akses **http://penanjakan.semerut13.pw/js**
+
+  ![](/images/13-2.png)  
 

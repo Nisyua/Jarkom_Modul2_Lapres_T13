@@ -377,4 +377,7 @@ penanajakan	  IN	  A	      10.151.77.156	; IP PROBOLINGGO
 * Buka browser dan akses **http://penanjakan.semerut13.pw/js**
 
   ![](/images/13-2.png)  
+  
+  #### kelompok kita cuma bisa ngerjain sampai nomer 13 mas hehe
+  #END
 

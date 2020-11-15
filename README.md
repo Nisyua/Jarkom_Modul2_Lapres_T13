@@ -379,5 +379,5 @@ penanajakan	  IN	  A	      10.151.77.156	; IP PROBOLINGGO
   ![](/images/13-2.png)  
   
   #### kelompok kita cuma bisa ngerjain sampai nomer 13 mas hehe
-  #END
+  # END
 
